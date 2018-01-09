@@ -11,4 +11,16 @@
   "Hello Title"
   [--name-- "hello"
    --metaclass-- PoolMeta
-   title (.Many2One fields "hello.title" "Title")])
+   title (.Many2One fields "hello.title" "Title")]
+
+
+  (with-decorator (fields.depends "title" "name" "surname")
+    (defn on-change-with-greeting [self]
+      (.get-greeting self "on_change_with")))
+  
+  (defn get-greeting [self name]
+    (setv su (super Hello self))
+    (setv res (.get_greeting su name))
+    (if self.title
+      (+ self.title.name " " res)
+      res)))
