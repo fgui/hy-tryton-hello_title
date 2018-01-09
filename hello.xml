@@ -1,0 +1,30 @@
+<tryton>
+  <data>
+    <record model="ir.ui.view" id="hello_view_tree">
+      <field name="model">hello</field>
+      <field name="name">hello_tree</field>
+      <field name="inherit" ref="hello.hello_view_tree"/>
+    </record>
+    <record model="ir.ui.view" id="hello_view_form">
+      <field name="model">hello</field>
+      <field name="name">hello_form</field>
+      <field name="inherit" ref="hello.hello_view_form"/>
+    </record>
+    <!--
+	Mr, Mrs, Miss, Ms, Sir, Dr, Lady or Lord
+	-->
+    <record model="hello.title" id="Mr">
+      <field name="name">Mr</field>
+    </record>
+    <record model="hello.title" id="Mrs">
+      <field name="name">Mrs</field>
+    </record>
+    <record model="hello.title" id="Miss">
+      <field name="name">Miss</field>
+    </record>
+    <record model="hello.title" id="Sir">
+      <field name="name">Sir</field>
+    </record>
+
+  </data>
+</tryton>
