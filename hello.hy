@@ -1,11 +1,21 @@
 (import [trytond.pool [PoolMeta]])
-(import [trytond.model [fields ModelSQL ModelView]])
+(import [trytond.model [fields ModelSQL ModelView Unique]])
 (def --all-- ["Hello" "HelloTitle"])
 
 (defclass HelloTitle [ModelSQL ModelView]
   "Hello Title"
   [--name-- "hello.title"
-   name (.Char fields "Name")])
+   name (.Char fields "Name")]
+
+  (with-decorator classmethod   
+    (defn --setup-- [cls]
+      (.--setup-- (super HelloTitle cls))
+      (setv t (.--table-- cls))
+      (.append cls.-sql-constraints
+               (, "name_uniq" (Unique t t.name)
+                  "Name must be unique"))
+      ))
+  )
 
 (defclass Hello []
   "Hello Title"
