@@ -23,7 +23,9 @@
    --metaclass-- PoolMeta
    important (.Boolean fields "Important Title")
    title (.Many2One fields "hello.title" "Title"
-                    :domain [(, "important" "=" (Eval "important"))])]
+                    :domain [(, "important" "=" (Eval "important"))]
+                    :depends '("important"))]
+  
 
   (with-decorator (fields.depends "title" "name" "surname" "co_prefix")
     (defn on-change-with-greeting [self]
