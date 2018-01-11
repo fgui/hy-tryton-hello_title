@@ -5,7 +5,8 @@
 (defclass HelloTitle [ModelSQL ModelView]
   "Hello Title"
   [--name-- "hello.title"
-   name (.Char fields "Name")]
+   name (.Char fields "Name")
+   important (.Boolean fields "Important")]
 
   (with-decorator classmethod   
     (defn --setup-- [cls]
@@ -21,10 +22,11 @@
   "Hello Title"
   [--name-- "hello"
    --metaclass-- PoolMeta
-   title (.Many2One fields "hello.title" "Title")]
+   title (.Many2One fields "hello.title" "Title"
+                    :domain [(, "important" "=" "true")]
+                    )]
 
-
-  (with-decorator (fields.depends "title" "name" "surname")
+  (with-decorator (fields.depends "title" "name" "surname" "co_prefix")
     (defn on-change-with-greeting [self]
       (.get-greeting self "on_change_with")))
   
