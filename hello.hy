@@ -1,4 +1,5 @@
 (import [trytond.pool [PoolMeta]])
+(import [trytond.pyson [Eval]])
 (import [trytond.model [fields ModelSQL ModelView Unique]])
 (def --all-- ["Hello" "HelloTitle"])
 
@@ -14,17 +15,15 @@
       (setv t (.--table-- cls))
       (.append cls.-sql-constraints
                (, "name_uniq" (Unique t t.name)
-                  "Name must be unique"))
-      ))
-  )
+                  "Name must be unique")))))
 
 (defclass Hello []
   "Hello Title"
   [--name-- "hello"
    --metaclass-- PoolMeta
+   important (.Boolean fields "Important Title")
    title (.Many2One fields "hello.title" "Title"
-                    :domain [(, "important" "=" "true")]
-                    )]
+                    :domain [(, "important" "=" (Eval "important"))])]
 
   (with-decorator (fields.depends "title" "name" "surname" "co_prefix")
     (defn on-change-with-greeting [self]

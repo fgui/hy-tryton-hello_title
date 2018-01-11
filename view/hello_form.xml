@@ -1,5 +1,8 @@
 <data>
-    <xpath expr="/form/label[@name='name']" position="before">
+  <xpath expr="/form/label[@name='name']" position="before">
+        <newline/>
+        <label name="important"/>
+        <field name="important"/>
         <label name="title"/>
         <field name="title"/>
     </xpath>
