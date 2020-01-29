@@ -1,7 +1,7 @@
 (import [trytond.pool [PoolMeta]])
 (import [trytond.pyson [Eval Bool Not]])
 (import [trytond.model [fields ModelSQL ModelView Unique]])
-(def --all-- ["Hello" "HelloTitle"])
+
 
 (defclass HelloTitle [ModelSQL ModelView]
   "Hello Title"
@@ -17,10 +17,9 @@
                (, "name_uniq" (Unique t t.name)
                   "Name must be unique")))))
 
-(defclass Hello []
+(defclass Hello [:metaclass PoolMeta]
   "Hello Title"
   [--name-- "hello"
-   --metaclass-- PoolMeta
    important (.Boolean fields "Important Title")
    title (.Many2One fields "hello.title" "Title"
                     :domain [(, "important" "=" (Eval "important"))]
